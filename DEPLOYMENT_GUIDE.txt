@@ -1,0 +1,56 @@
+=======================================================
+AMC HOSPITAL - MASTER API DEPLOYMENT GUIDE
+Save this file for when you upload to Hostinger
+=======================================================
+
+To activate the real-world Cloud features (Database, AI, and WhatsApp), follow these 3 steps exactly:
+
+---
+STEP 1: ACTIVATE THE AI CONCIERGE (Gemini API)
+---
+1. Go to: https://aistudio.google.com/
+2. Log in with your Google account.
+3. On the left menu, click "Get API Key" -> "Create API Key". 
+4. Copy that long string of text.
+5. In your project code, open `js/app.js`.
+6. Scroll to line ~260 and find:
+   const AI_CONFIG = { apiKey: 'ENTER_YOUR_API_KEY_HERE', ... }
+7. Replace 'ENTER_YOUR_API_KEY_HERE' with your real API key (keep the quotes!).
+
+
+---
+STEP 2: ACTIVATE THE DATABASE (MongoDB Atlas)
+---
+1. Go to: https://www.mongodb.com/cloud/atlas
+2. Create a free account and choose "Build a Database" (Select the FREE Shared Cluster M0).
+3. Create a Database User (Username and Password) and save them.
+4. Under Network Access, click "Add IP Address" and select "Allow Access from Anywhere" (0.0.0.0/0).
+5. Click "Connect -> Connect your application" and copy your Connection String URL. It will look like: 
+   mongodb+srv://<username>:<password>@cluster0.mongodb.net/amcdb
+6. In your `backend/` folder, create a new file named exactly: `.env`
+7. Inside `.env`, paste this line:
+   MONGO_URI=mongodb+srv://admin:mysecretpassword@cluster0.abc.mongodb.net/amcdb
+   (Make sure to replace admin:mysecretpassword with your real DB user and password).
+
+
+---
+STEP 3: ACTIVATE WHATSAPP AUTOMATION (Meta / Facebook Developer)
+---
+1. Go to: https://developers.facebook.com/
+2. Log in, go to "My Apps", and click "Create App". 
+3. Select "Other" -> "Business".
+4. Once your app is created, scroll down to the bottom and click "Set Up" on WhatsApp.
+5. Click "API Setup" on the left menu.
+6. You will see two things: A "Temporary Access Token" and a "Phone Number ID". Copy both!
+7. Open that same `backend/.env` file you made in Step 2.
+8. Add these three lines to the bottom of the file:
+   WHATSAPP_TOKEN=paste_your_long_meta_access_token_here
+   PHONE_NUMBER_ID=paste_your_phone_id_here
+   ADMIN_PHONE_NUMBER=201224278490
+
+
+---
+DEPLOYMENT SUMMARY
+---
+- Host frontend (index.html, css, js) on Hostinger
+- Host the backend folder (server.js, .env, package.json) on a Node.js server (like Hostinger VPS, Render.com, or Railway.app).

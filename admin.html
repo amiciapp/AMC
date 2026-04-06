@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMC | Secure Admin Access</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body { background: var(--color-bg); }
+        .login-wrapper {
+            height: 100vh; display: flex; align-items: center; justify-content: center;
+            background: linear-gradient(135deg, var(--color-blue-deep) 0%, var(--color-blue-light) 100%);
+        }
+        .login-card {
+            background: var(--color-white); width: 100%; max-width: 400px;
+            padding: 3rem; border-radius: var(--radius-lg); box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        .login-card input { width: 100%; padding: 1rem; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: var(--radius-sm); outline:none; }
+        .login-card button { width: 100%; padding: 1rem; background: var(--color-gold); color: white; border-radius: var(--radius-pill); font-weight: 600; font-size: 1.1rem; }
+        .admin-dashboard { display: none; padding: 2rem; max-width: 1200px; margin: 0 auto; }
+        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+        .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
+        .stat-card { background: white; padding: 1.5rem; border-radius: var(--radius-md); box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 4px solid var(--color-gold); }
+        .data-section { background: white; padding: 2rem; border-radius: var(--radius-md); margin-bottom: 2rem; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { text-align: left; padding: 1rem; border-bottom: 1px solid #eee; }
+        th { background: var(--color-bg); }
+        .add-form { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem; }
+        .add-form input { padding: 0.8rem; border: 1px solid #ddd; border-radius: var(--radius-sm); }
+    </style>
+</head>
+<body>
+
+    <!-- LOGIN SCREEN -->
+    <div id="login-screen" class="login-wrapper">
+        <div class="login-card">
+            <h2 style="margin-bottom: 2rem; color: var(--color-blue-deep); font-family: var(--font-heading);">AMC<span>.</span> Admin</h2>
+            <input type="text" id="username" placeholder="Username (admin)">
+            <input type="password" id="password" placeholder="Password">
+            <button onclick="attemptLogin()">Access System</button>
+            <p id="login-error" style="color: red; margin-top: 1rem; display: none;">Invalid Credentials</p>
+        </div>
+    </div>
+
+    <!-- DASHBOARD (Hidden until login) -->
+    <div id="dashboard-screen" class="admin-dashboard">
+        <div class="admin-header">
+            <h2>AMC Command Center</h2>
+            <button class="nav-btn-outline" onclick="logout()">Logout</button>
+        </div>
+
+        <div class="stat-grid">
+            <div class="stat-card">
+                <h3>Total Bookings</h3>
+                <p id="stat-bookings" style="font-size:2rem; font-weight:600; color:var(--color-blue-deep);">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Active Doctors</h3>
+                <p id="stat-doctors" style="font-size:2rem; font-weight:600; color:var(--color-blue-deep);">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Active Services</h3>
+                <p id="stat-services" style="font-size:2rem; font-weight:600; color:var(--color-blue-deep);">0</p>
+            </div>
+        </div>
+
+        <div class="data-section">
+            <h3 style="margin-bottom: 1rem;">Recent Bookings (Simulated Postgres DB)</h3>
+            <table id="bookings-table">
+                <tr><th>Patient</th><th>Phone</th><th>Department</th><th>Doctor</th></tr>
+                <!-- Injected via JS -->
+            </table>
+        </div>
+
+        <div class="data-section">
+            <h3 style="margin-bottom: 1rem;">Manage Doctors (Headless CMS)</h3>
+            <div class="add-form">
+                <input type="text" id="doc-name" placeholder="Doctor Name (e.g., Dr. Smith)">
+                <input type="text" id="doc-spec" placeholder="Specialty">
+                <input type="text" id="doc-exp" placeholder="Experience (e.g., 10 Years)">
+                <input type="text" id="doc-img" placeholder="Image URL">
+            </div>
+            <button class="nav-btn-prime" onclick="addDoctor()">Add Doctor to Front-End</button>
+            
+            <table id="doctors-table" style="margin-top:2rem;">
+                <tr><th>Name</th><th>Specialty</th><th>Action</th></tr>
+                <!-- Injected via JS -->
+            </table>
+        </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

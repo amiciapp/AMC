@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="seo-title">AMC | Assel Medical Center</title>
+    <!-- SEO and Schema to be injected dynamically per route -->
+    <meta id="seo-desc" name="description" content="AMC Assel Medical Center — The premier luxury hospital in Hurghada, Egypt. 24/7 Emergency, Orthopedics, ICU, and 12+ specialties. Hotline: 19262.">
+    <script type="application/ld+json" id="seo-schema"></script>
+    
+    <!-- Open Graph / Social Sharing -->
+    <meta property="og:title" content="AMC | Assel Medical Center — Hurghada, Egypt">
+    <meta property="og:description" content="Experience world-class medical excellence in a 5-star environment. 12+ departments, 24/7 Emergency, Temos Accredited.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1200&q=80">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="https://img.icons8.com/fluency/48/hospital.png" type="image/png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Leaflet Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="loading">
+    
+    <!-- Cinematic Loading Screen -->
+    <div id="loader">
+        <div class="loader-logo">AMC</div>
+        <div class="loader-bar"><div class="fill"></div></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="glass-nav">
+        <div class="nav-container">
+            <a href="#home" class="nav-logo" data-route="home">AMC<span>.</span></a>
+            
+            <div class="nav-links">
+                <a href="#home" data-route="home" data-i18n="nav_home">Home</a>
+                <a href="#about" data-route="about" data-i18n="nav_about">About Us</a>
+                <a href="#map" data-route="map" data-i18n="nav_map">Hospital Plan</a>
+                <a href="#blog" data-route="blog" data-i18n="nav_blog">Blog</a>
+                <a href="#contact" data-route="contact" data-i18n="nav_contact">Contact</a>
+            </div>
+
+            <div class="nav-actions">
+                <button class="nav-btn-prime" onclick="openBooking()" data-i18n="nav_book">Book Appointment</button>
+                <div class="mobile-menu-toggle"><i class="fas fa-bars"></i></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page transitions overlay -->
+    <div class="page-transition"></div>
+
+    <!-- SPA Root Container -->
+    <main id="app-root">
+        <!-- Content gets injected here -->
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass-footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h2>AMC<span>.</span></h2>
+                <p data-i18n="footer_desc" style="font-size: 0.9rem; margin-top:-5px; font-weight:600; color:var(--color-gold);">ASSEL MEDICAL CENTER</p>
+                <p data-i18n="footer_desc_sub" style="margin-top:10px;">Redefining luxury healthcare in Egypt.</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/AMC-Aseel-Medical-Care-Hospital-241919802623550" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.linkedin.com/company/aseel-medical-care-group/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://twitter.com/HospitalAmc" target="_blank"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h3 data-i18n="footer_quick">Quick Links</h3>
+                <a href="#services" data-route="services">Services</a>
+                <a href="#doctors" data-route="doctors">Doctors</a>
+                <a href="#map" data-route="map">Hospital Map</a>
+                <a href="#blog" data-route="blog">News & Blog</a>
+            </div>
+            <div class="footer-contact">
+                <h3 data-i18n="footer_contact">Contact Us</h3>
+                <p><i class="fas fa-phone"></i> Hotline: 19262</p>
+                <p><i class="fas fa-phone-alt"></i> +2 065 344 1110</p>
+                <p><i class="fas fa-envelope"></i> info@asselmedical.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> 9 El Kamar Dist, Elhadaba Rd, Hurghada</p>
+            </div>
+            <div class="footer-newsletter">
+                <h3 data-i18n="footer_health">Health Insights</h3>
+                <div class="input-group">
+                    <input type="email" placeholder="Your Email Address" id="newsletter-email">
+                    <button id="newsletter-btn"><i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; <span id="year"></span> Assel Medical Center (AMC). All rights reserved.</p>
+            <p style="margin-top: 10px; font-size: 0.85rem; opacity: 0.7;">Designed by <strong>ROMERO'S STUDIOS</strong> | <i class="fab fa-whatsapp"></i> +20 122 427 8490</p>
+        </div>
+    </footer>
+
+    <!-- Emergency Floating Button -->
+    <button id="emergency-btn" class="emergency-float" onclick="triggerEmergency()">
+        <i class="fas fa-ambulance"></i> <span data-i18n="btn_emergency">Emergency 24/7</span>
+    </button>
+
+    <!-- WhatsApp Floating Action -->
+    <a href="https://wa.me/20653441110" target="_blank" class="whatsapp-float">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- AI Agent Interface -->
+    <div id="ai-agent-wrapper" class="ai-closed">
+        <button id="ai-toggle"><i class="fas fa-comment-medical"></i></button>
+        <div class="ai-widget">
+            <div class="ai-header">
+                <div class="ai-avatar">
+                    <img src="https://images.unsplash.com/photo-1594824432258-fe2e22c0daec?auto=format&fit=crop&w=100&q=80" alt="AI Agent">
+                    <span class="online-dot"></span>
+                </div>
+                <div class="ai-info">
+                    <h4>AMC Assistant</h4>
+                    <p>Receptionist & Medical Triage</p>
+                </div>
+                <button id="ai-close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="ai-chat-body" id="ai-chat">
+                <div class="ai-msg bot">
+                    <p>Welcome to Assel Medical Center. How can I assist you with your health today?</p>
+                </div>
+                <div class="chat-options">
+                    <button onclick="aiClick('Book Appointment')">Book Appointment</button>
+                    <button onclick="aiClick('Emergency')">Emergency</button>
+                    <button onclick="aiClick('Find a Doctor')">Find a Doctor</button>
+                </div>
+            </div>
+                <div class="chat-input" style="padding:15px; border-top:1px solid #eee; display:flex; gap:10px;">
+                    <button id="ai-mic" onclick="toggleVoice()"><i class="fas fa-microphone"></i></button>
+                    <input type="text" id="ai-input" placeholder="Type or tap microphone...">
+                    <button id="ai-send" onclick="aiClick()"><i class="fas fa-paper-plane"></i></button>
+                </div>
+        </div>
+    </div>
+
+    <!-- Booking Modal -->
+    <div id="booking-modal" class="modal-overlay">
+        <div class="modal-content glass-panel">
+            <button class="modal-close" onclick="closeBooking()"><i class="fas fa-times"></i></button>
+            <h2 data-i18n="book_title">Reserve Your Consultation</h2>
+            <div class="booking-steps">
+                <div class="step active" data-step="1">1. Department</div>
+                <div class="step" data-step="2">2. Doctor</div>
+                <div class="step" data-step="3">3. Date & Time</div>
+                <div class="step" data-step="4">4. Details</div>
+            </div>
+            <div class="booking-body" id="booking-body">
+                <!-- Injected progressively by JS -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
